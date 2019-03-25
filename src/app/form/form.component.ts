@@ -3,7 +3,6 @@ import { faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { NgForm } from '@angular/forms';
 import { state, style, trigger, transition, animate } from '@angular/animations';
 import { ToDoService } from '../todo.service';
-import { removeDebugNodeFromIndex } from '@angular/core/src/debug/debug_node';
 
 
 @Component({
