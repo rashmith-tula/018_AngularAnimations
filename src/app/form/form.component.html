@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-12">
+    <form (ngSubmit)="onAdd(f)" #f="ngForm">
+      <div class="form-group">
+        <div class="d-flex justify-content-center">
+
+          <input type="text" class="form-control" style="width: 60%" name="todo" placeholder="Enter todo" required
+            ngModel>
+
+          <button class="btn btn-success ml-2" [disabled]="f.invalid">
+            <fa-icon [icon]="faPlusCircle" class="fa-lg"></fa-icon>
+          </button>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-primary" *ngFor="let todo of todos; let i = index" [@onAdd]>
+        <span class="d-flex justify-content-between">
+          {{todo}}
+          <button class="btn btn-danger btn-sm" (click)="onDelete(i)">
+            <fa-icon [icon]="faTrash" class="fa-sm"></fa-icon>
+          </button>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
