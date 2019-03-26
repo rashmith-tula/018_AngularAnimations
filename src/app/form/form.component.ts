@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faPlusCircle, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { NgForm } from '@angular/forms';
-import { state, style, trigger, transition, animate } from '@angular/animations';
+import { state, style, trigger, transition, animate, group } from '@angular/animations';
 import { ToDoService } from '../todo.service';
 
 
@@ -11,43 +11,59 @@ import { ToDoService } from '../todo.service';
   styleUrls: ['./form.component.css'],
   animations: [
     trigger('onAdd', [
-      state('normal', style({opacity: 1, 'transform' : 'translateX(0)'})),
+      state('normal', style({ opacity: 1, 'transform': 'translateX(0)' })),
       transition('void => *', [
-        style({opacity: 0, 'transform': 'translateX(-100px)'}),
-        animate(300)
+        style({ opacity: 0, 'transform': 'translateX(-200px)' }),
+        animate(500)
       ]),
       transition('* => void', [
-        animate(300, style({
-          opacity: 0,
-          backgroundColor: 'red',
-          'transform': 'translateX(100px)'
-        }))
+        animate(300, style({ backgroundColor: 'red' })),
+        group([
+          animate(300, style({'font-weight': 'bold'})),
+          animate(500, style({
+            opacity: 0,
+            'transform': 'translateX(200px)'
+          }))
+        ])
+
       ])
     ])
-]
+  ]
 })
 export class FormComponent implements OnInit {
   todos: any[] = [];
   faPlusCircle = faPlusCircle;
   faTrash = faTrash;
+  invalid = false;
 
   constructor(private todoService: ToDoService) { }
 
   ngOnInit() {
-    // this.todos = this.todoService.getTodos();
+    this.todos = this.todoService.getTodos();
+  }
+
+  onEntry(event: any) {
+    if (this.todos.indexOf(event.target.value) < 0) {
+      this.invalid = false;
+    } else {
+      this.invalid = true;
+    }
   }
 
   onAdd(form: NgForm) {
-    debugger;
-    this.todos.unshift(form.value.todo);
-    // this.todoService.addTodo(form.value.todo);
-    form.reset();
+    if (this.todos.indexOf(form.value.todo) < 0) {
+      // this.todos.unshift(form.value.todo);
+      this.invalid = false;
+      this.todoService.addTodo(form.value.todo);
+      form.reset();
+    } else {
+       this.invalid = true;
+    }
   }
 
   onDelete(id: number) {
-    debugger;
-    // this.todoService.deleteTodo(id);
-    this.todos.splice(id,1);
+    this.todoService.deleteTodo(id);
+    // this.todos.splice(id, 1);
   }
 
 }
