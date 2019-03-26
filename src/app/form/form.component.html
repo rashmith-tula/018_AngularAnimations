@@ -2,8 +2,11 @@
   <div class="form-group">
     <div class="d-flex justify-content-center">
 
-      <input type="text" class="form-control" style="width: 60%" name="todo" placeholder="Enter todo"
-        (keyup)="onEntry($event)" required ngModel>
+      <!-- <input type="text" class="form-control" style="width: 60%" name="todo" placeholder="Enter todo"
+        (keyup)="onEntry($event)" required ngModel> -->
+
+        <input type="text" class="form-control" style="width: 60%" name="todo" placeholder="Enter todo"
+        (keyup)="onEntry(input.value)" #input required ngModel>
 
       <button class="btn btn-success ml-2" [disabled]="f.invalid || invalid">
         <fa-icon [icon]="faPlusCircle" class="fa-lg"></fa-icon>

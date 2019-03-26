@@ -20,8 +20,17 @@ export class FormComponent implements OnInit {
     this.todos = this.todoService.getTodos();
   }
 
-  onEntry(event: any) {
-    if (this.todos.indexOf(event.target.value) < 0) {
+  // onEntry(event: any) {
+  //   if (this.todos.indexOf(event.target.value) < 0) {
+  //     this.invalid = false;
+  //   } else {
+  //     this.invalid = true;
+  //   }
+  // }
+
+  onEntry(value: string) {
+    debugger;
+    if (this.todos.indexOf(value) < 0) {
       this.invalid = false;
     } else {
       this.invalid = true;
